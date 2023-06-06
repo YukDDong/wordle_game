@@ -40,12 +40,14 @@ header {
 .header_icons img {
   height: 40px;
 }
+
 main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-bottom: 25px;
 }
 
 .board-row {
@@ -62,4 +64,43 @@ main {
   border: 2px solid #d3d6da;
   width: 60px;
   height: 60px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 10px;
+}
+
+.keyboard-block {
+  width: 30px;
+  height: 50px;
+  background-color: #dee0e2;
+  padding: 10px 10px;
+  font-size: 30px;
+  font-weight: 600;
+  border-radius: 5px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.enter {
+  width: 60px;
+  font-size: 15px;
+}
+
+.backspace {
+  width: 60px;
+}
+
+.backspace img {
+  width: 35px;
+  height: 50px;
+  line-height: 50px;
 }
