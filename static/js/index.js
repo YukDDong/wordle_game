@@ -1,5 +1,3 @@
-const answer = "APPLE";
-
 let attempts = 0;
 let index = 0;
 let correctText = 0;
@@ -38,7 +36,9 @@ const appStart = () => {
       index -= 1;
     }
   };
-  const handleEnterKey = () => {
+  const handleEnterKey = async () => {
+    const response = await fetch("/answer");
+    const { answer } = await response.json();
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index="${attempts}${i}"]`
