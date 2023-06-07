@@ -1,9 +1,30 @@
+const answer = "APPLE";
+
 let attempts = 0;
 let index = 0;
 
 const appStart = () => {
+  const nextLine = () => {
+    attempts += 1;
+    index = 0;
+  };
   const handleEnterKey = () => {
-    console.log("엔터키");
+    for (let i = 0; i < 5; i++) {
+      const block = document.querySelector(
+        `.board-block[data-index="${attempts}${i}"]`
+      );
+      const blockText = block.innerText;
+      const answerText = answer[i];
+      if (blockText === answerText) {
+        block.style.background = "#6AAA64";
+      } else if (answer.includes(blockText)) {
+        block.style.background = "#C9B458";
+      } else {
+        block.style.background = "#787C7E";
+      }
+      block.style.color = "white";
+    }
+    nextLine();
   };
 
   const handleKeydown = (event) => {
@@ -12,11 +33,11 @@ const appStart = () => {
     const currentBlock = document.querySelector(
       `.board-block[data-index="${attempts}${index}"]`
     );
-    if (event.key === "Enter") {
-      handleEnterKey();
-    }
-    if (index === 5) return;
-    if (keyCode >= 65 && keyCode <= 90) {
+    if (index === 5) {
+      if (event.key === "Enter") {
+        handleEnterKey();
+      } else return;
+    } else if (keyCode >= 65 && keyCode <= 90) {
       currentBlock.innerText = key;
       index += 1;
     }
