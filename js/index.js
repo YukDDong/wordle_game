@@ -2,11 +2,17 @@ const answer = "APPLE";
 
 let attempts = 0;
 let index = 0;
+let correctText = 0;
 
 const appStart = () => {
   const nextLine = () => {
     attempts += 1;
     index = 0;
+    correctText = 0;
+  };
+
+  const gameover = () => {
+    window.removeEventListener("keydown", handleKeydown);
   };
   const handleEnterKey = () => {
     for (let i = 0; i < 5; i++) {
@@ -17,6 +23,7 @@ const appStart = () => {
       const answerText = answer[i];
       if (blockText === answerText) {
         block.style.background = "#6AAA64";
+        correctText += 1;
       } else if (answer.includes(blockText)) {
         block.style.background = "#C9B458";
       } else {
@@ -24,7 +31,11 @@ const appStart = () => {
       }
       block.style.color = "white";
     }
-    nextLine();
+    if (correctText === 5) {
+      gameover();
+    } else {
+      nextLine();
+    }
   };
 
   const handleKeydown = (event) => {
