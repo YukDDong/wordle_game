@@ -26,6 +26,16 @@ const appStart = () => {
     window.removeEventListener("keydown", handleKeydown);
     displayGameover();
   };
+
+  const handleBackspace = () => {
+    if (index > 0) {
+      const preblock = document.querySelector(
+        `.board-block[data-index="${attempts}${index - 1}"]`
+      );
+      preblock.innerText = "";
+      index -= 1;
+    }
+  };
   const handleEnterKey = () => {
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
@@ -33,6 +43,7 @@ const appStart = () => {
       );
       const blockText = block.innerText;
       const answerText = answer[i];
+
       if (blockText === answerText) {
         block.style.background = "#6AAA64";
         correctText += 1;
@@ -56,7 +67,9 @@ const appStart = () => {
     const currentBlock = document.querySelector(
       `.board-block[data-index="${attempts}${index}"]`
     );
-    if (index === 5) {
+
+    if (event.key === "Backspace") handleBackspace();
+    else if (index === 5) {
       if (event.key === "Enter") {
         handleEnterKey();
       } else return;
