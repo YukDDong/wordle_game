@@ -6,6 +6,10 @@ let correctText = 0;
 
 const appStart = () => {
   const nextLine = () => {
+    if (attempts === 6) {
+      gameover();
+      return;
+    }
     attempts += 1;
     index = 0;
     correctText = 0;
