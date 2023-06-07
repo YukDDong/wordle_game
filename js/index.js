@@ -3,6 +3,7 @@ const answer = "APPLE";
 let attempts = 0;
 let index = 0;
 let correctText = 0;
+let timer;
 
 const appStart = () => {
   const displayGameover = () => {
@@ -25,6 +26,7 @@ const appStart = () => {
   const gameover = () => {
     window.removeEventListener("keydown", handleKeydown);
     displayGameover();
+    clearInterval(timer);
   };
 
   const handleBackspace = () => {
@@ -78,6 +80,21 @@ const appStart = () => {
       index += 1;
     }
   };
+  const startTimer = () => {
+    const startTime = new Date();
+
+    const setTime = () => {
+      const currentTime = new Date();
+      const passingTime = new Date(currentTime - startTime);
+      const minutes = passingTime.getMinutes().toString().padStart(2, "0");
+      const seconds = passingTime.getSeconds().toString().padStart(2, "0");
+      const time = document.querySelector(".time");
+      time.innerText = `${minutes}:${seconds}`;
+    };
+
+    timer = setInterval(setTime, 1000);
+  };
+  startTimer();
   window.addEventListener("keydown", handleKeydown);
 };
 
