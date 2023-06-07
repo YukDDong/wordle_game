@@ -5,6 +5,13 @@ let index = 0;
 let correctText = 0;
 
 const appStart = () => {
+  const displayGameover = () => {
+    const div = document.createElement("div");
+    div.innerText = "게임이 종료되었습니다.";
+    div.style =
+      "display: flex; justify-content: center; align-items: center; position: absolute; top: 40vh; left: 35vw; background-color: white; width: 200px; height: 100px;";
+    document.body.appendChild(div);
+  };
   const nextLine = () => {
     if (attempts === 6) {
       gameover();
@@ -17,6 +24,7 @@ const appStart = () => {
 
   const gameover = () => {
     window.removeEventListener("keydown", handleKeydown);
+    displayGameover();
   };
   const handleEnterKey = () => {
     for (let i = 0; i < 5; i++) {
