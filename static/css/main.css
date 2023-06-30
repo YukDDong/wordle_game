@@ -115,3 +115,59 @@ footer {
   height: 50px;
   line-height: 50px;
 }
+
+.leftRight {
+  animation: leftRight 0.1s;
+}
+
+.swashIn {
+  animation: swashIn 1s;
+}
+
+@keyframes leftRight {
+  0% {
+    left: 0px;
+  }
+
+  25% {
+    left: 10px;
+  }
+
+  50% {
+    left: 0px;
+  }
+
+  75% {
+    left: -10px;
+  }
+
+  100% {
+    left: 0px;
+  }
+}
+
+@keyframes swashIn {
+  0% {
+    opacity: 0;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
+  }
+
+  90% {
+    opacity: 1;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: scale(0.9, 0.9);
+    transform: scale(0.9, 0.9);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+}

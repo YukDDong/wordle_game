@@ -69,8 +69,17 @@ const appStart = () => {
       keboardBlock.style.color = "white";
     }
     if (correctText === 5) {
+      const correctDiv = document.createElement("div");
+      correctDiv.style =
+        "display: flex; justify-content: center; align-items: center; position: absolute; top: 25vh; left: 35vw; background-color: pink; width: 200px; height: 100px;";
+      correctDiv.className = "swashIn";
+      correctDiv.innerText = "정답입니다!!";
+      document.body.appendChild(correctDiv);
       gameover();
     } else {
+      const totalBlock = document.querySelector(`.row-${attempts}`);
+      totalBlock.style = "position: relative;";
+      totalBlock.classList.add("leftRight");
       nextLine();
     }
   };
