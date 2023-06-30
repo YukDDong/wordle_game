@@ -4,6 +4,7 @@ let correctText = 0;
 let timer;
 
 const appStart = () => {
+  const keyboardBlocks = document.querySelectorAll(".keyboard-block");
   const displayGameover = () => {
     const div = document.createElement("div");
     div.innerText = "게임이 종료되었습니다.";
@@ -23,6 +24,9 @@ const appStart = () => {
 
   const gameover = () => {
     window.removeEventListener("keydown", handleKeydown);
+    keyboardBlocks.forEach((i) => {
+      i.removeEventListener("click", handleClickKey);
+    });
     displayGameover();
     clearInterval(timer);
   };
@@ -37,24 +41,32 @@ const appStart = () => {
     }
   };
   const handleEnterKey = async () => {
-    const response = await fetch("/answer");
-    const { answer } = await response.json();
+    // const response = await fetch("/answer");
+    // const { answer } = await response.json();
+    const answer = "APPLE";
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index="${attempts}${i}"]`
       );
       const blockText = block.innerText;
+      const keboardBlock = document.querySelector(
+        `.keyboard-block[data-key="${blockText}"]`
+      );
       const answerText = answer[i];
 
       if (blockText === answerText) {
         block.style.background = "#6AAA64";
+        keboardBlock.style.background = "#6AAA64";
         correctText += 1;
       } else if (answer.includes(blockText)) {
         block.style.background = "#C9B458";
+        keboardBlock.style.background = "#C9B458";
       } else {
         block.style.background = "#787C7E";
+        keboardBlock.style.background = "#787C7E";
       }
       block.style.color = "white";
+      keboardBlock.style.color = "white";
     }
     if (correctText === 5) {
       gameover();
@@ -64,22 +76,39 @@ const appStart = () => {
   };
 
   const handleKeydown = (event) => {
-    const key = event.key.toUpperCase();
+    const key = event.key;
     const keyCode = event.keyCode;
     const currentBlock = document.querySelector(
       `.board-block[data-index="${attempts}${index}"]`
     );
 
-    if (event.key === "Backspace") handleBackspace();
+    if (key === "Backspace") handleBackspace();
     else if (index === 5) {
-      if (event.key === "Enter") {
+      if (key === "Enter") {
         handleEnterKey();
       } else return;
     } else if (keyCode >= 65 && keyCode <= 90) {
+      currentBlock.innerText = key.toUpperCase();
+      index += 1;
+    }
+  };
+
+  const handleClickKey = (event) => {
+    const key = event.currentTarget.dataset.key;
+    const currentBlock = document.querySelector(
+      `.board-block[data-index="${attempts}${index}"]`
+    );
+    if (key === "BACKSPACE") handleBackspace();
+    else if (index === 5) {
+      if (key === "ENTER") {
+        handleEnterKey();
+      } else return;
+    } else if (event.target.className === "keyboard-block") {
       currentBlock.innerText = key;
       index += 1;
     }
   };
+
   const startTimer = () => {
     const startTime = new Date();
 
@@ -96,6 +125,9 @@ const appStart = () => {
   };
   startTimer();
   window.addEventListener("keydown", handleKeydown);
+  keyboardBlocks.forEach((i) => {
+    i.addEventListener("click", handleClickKey);
+  });
 };
 
 appStart();
